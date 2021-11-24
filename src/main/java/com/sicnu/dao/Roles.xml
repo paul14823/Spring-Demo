@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sicnu.dao.Roles">
+    <!--定义具体的SQL语句查询，id值请与接口的方法名对应-->
+    <resultMap id="role" type="role">
+        <result property="id" column="id"/>
+        <result property="RoleName" column="role_name"/>
+        <result property="Note" column="note"/>
+    </resultMap>
+    <select id="GetAllRole" resultMap="role">
+        select * from t_role
+    </select>
+    <select id="GetRoleById" parameterType="int" resultMap="role">
+        select * from t_role where id=#{id}
+    </select>
+    <select id="GetRoleCount" resultType="int">
+        select coun(*) from t_role
+    </select>
+    <insert id="AddRole" parameterType="role" useGeneratedKeys="true" keyProperty="id">
+        insert into t_role(role_name,note) values(#{RoleName},#{Note})
+    </insert>
+</mapper>

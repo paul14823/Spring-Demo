@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--配置组件扫描器-->
+    <context:component-scan base-package="com.sicnu.services"/>
+    <!--配置aspect类-->
+    <bean id="aspects" class="com.sicnu.aspects.Aspects"/>
+    <!--配置aspectj自动代理类-->
+    <aop:aspectj-autoproxy/>
+
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--配置druid数据源-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+    </bean>
+
+    <!--sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" scope="singleton">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!--配置MapperScannerConfigurer，实现dao接口的代理类，此bean没有id值-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.sicnu.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--定义只扫描指定包下面定义了@Repository注解的接口才自动注入spring-->
+        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
+    </bean>
+</beans>
