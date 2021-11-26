@@ -33,4 +33,9 @@
         <!--定义只扫描指定包下面定义了@Repository注解的接口才自动注入spring-->
         <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
     </bean>
+
+    <bean id="shop" class="com.sicnu.services.IShopImp" scope="singleton">
+        <property name="goods" ref="goods"/>
+        <property name="orders" ref="orders"/>
+    </bean>
 </beans>

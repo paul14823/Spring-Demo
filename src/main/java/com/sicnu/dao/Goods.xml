@@ -3,13 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sicnu.dao.Goods">
-    <resultMap id="order" type="order">
+    <resultMap id="good" type="good">
         <id property="Id" column="id"/>
         <result property="Name" column="name"/>
         <result property="Mount" column="mount"/>
     </resultMap>
     <!--定义具体的SQL语句查询，id值请与接口的方法名对应-->
-    <select id="Buy">
+    <update id="Buy">
         update t_goods set mount=mount-#{mount} where id=#{id}
+    </update>
+    <select id="GetGoodById" resultMap="good">
+        select * from t_goods where id=#{id}
+    </select>
+    <select id="GetAllGoods" resultMap="good">
+        select * from t_goods
     </select>
 </mapper>

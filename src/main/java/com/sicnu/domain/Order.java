@@ -11,4 +11,11 @@ public class Order {
     private int Id;
     private int GoodId;
     private int Mount;
+    public Order(){
+
+    }
+    public Order(int good_id,int mount){
+        this.GoodId=good_id;
+        this.Mount=mount;
+    }
 }

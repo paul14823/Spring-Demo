@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sicnu.dao.Orders">
-    <resultMap id="oder" type="order">
+    <resultMap id="order" type="order">
         <id property="Id" column="id"/>
         <result property="GoodId" column="good_id"/>
         <result property="Mount" column="mount"/>
